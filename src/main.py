@@ -31,7 +31,7 @@ class CatgirldownloaderApplication(Adw.Application):
     """The main application singleton class."""
 
     def __init__(self):
-        super().__init__(application_id='moe.nyarchlinux.catgirldownloader',
+        super().__init__(application_id='moe.nyarchlinux.waifudownloader',
                          flags=Gio.ApplicationFlags.FLAGS_NONE)
         self.create_action('quit', self.quit, ['<primary>q'])
         self.create_action('about', self.on_about_action)
@@ -56,7 +56,7 @@ class CatgirldownloaderApplication(Adw.Application):
         """Callback for the app.about action."""
         about = Adw.AboutWindow(transient_for=self.props.active_window,
                                 application_name='Catgirl Downloader',
-                                application_icon='moe.nyarchlinux.catgirldownloader',
+                                application_icon='moe.nyarchlinux.waifudownloader',
                                 developer_name='Nyarch Linux developers team',
                                 version='0.2.4',
                                 developers=['SilverOS'],
