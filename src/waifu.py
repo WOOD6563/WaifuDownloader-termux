@@ -3,7 +3,7 @@ import json
 
 class WaifuDownloaderAPI:
 	def __init__(self):
-		self.endpoint = "https://nekos.moe/api/v1/random/image?nsfw="
+		self.endpoint = "https://api.waifu.im/search?is_nsfw="
 	def get_page(self, nsfw = False):
 		try:
 			r = requests.get(self.endpoint + str(nsfw).lower(), timeout=10)
@@ -18,7 +18,7 @@ class WaifuDownloaderAPI:
 	def get_page_url(self, response):
 		data = json.loads(response)
 		self.info = data
-		return "https://nekos.moe/image/" + data["images"][0]['id']
+		return data["images"][0]['url']
 
 	def get_neko(self, nsfw=False):
 		return self.get_page_url(self.get_page(nsfw))
