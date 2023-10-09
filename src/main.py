@@ -58,7 +58,7 @@ class WaifudownloaderApplication(Adw.Application):
                                 application_name='Waifu Downloader',
                                 application_icon='moe.nyarchlinux.waifudownloader',
                                 developer_name='Nyarch Linux developers team',
-                                version='0.2.4',
+                                version='0.2.5',
                                 developers=['SilverOS'],
                                 copyright='© 2022 SilverOS')
         about.present()
