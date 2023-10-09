@@ -68,8 +68,8 @@ class WaifudownloaderApplication(Adw.Application):
         if hasattr(self.window, "info"):
             info = self.window.info["images"][0]
             about = Adw.AboutWindow(transient_for=self.props.active_window,
-                                    artists=[info['artist']],
-                                    website="https://nekos.moe/post/" + info['id'])
+                                    artists=["" if info['artist'] is None else info['artist']],
+                                    website= info['source'])
             about.present()
 
     def on_preferences_action(self, widget, _):
