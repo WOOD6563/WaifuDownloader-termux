@@ -1,7 +1,7 @@
 import requests
 import json
 
-class CatgirlDownloaderAPI:
+class WaifuDownloaderAPI:
 	def __init__(self):
 		self.endpoint = "https://nekos.moe/api/v1/random/image?nsfw="
 	def get_page(self, nsfw = False):

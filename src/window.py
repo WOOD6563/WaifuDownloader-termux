@@ -18,13 +18,13 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from gi.repository import Gtk, Adw, GdkPixbuf, GLib
-from .catgirl import CatgirlDownloaderAPI
+from .waifu import WaifuDownloaderAPI
 import threading
 from .preferences import UserPreferences
 
 @Gtk.Template(resource_path='/moe/nyarchlinux/waifudownloader/../data/ui/window.ui')
-class CatgirldownloaderWindow(Adw.ApplicationWindow):
-    __gtype_name__ = 'CatgirldownloaderWindow'
+class WaifudownloaderWindow(Adw.ApplicationWindow):
+    __gtype_name__ = 'WaifudownloaderWindow'
 
     refresh_button = Gtk.Template.Child("refresh_button")
     spinner = Gtk.Template.Child("spinner")
@@ -47,13 +47,13 @@ class CatgirldownloaderWindow(Adw.ApplicationWindow):
         # Start loading
         self.spinner.set_visible(True)
         self.spinner.start()
-        # Get catgirl image
+        # Get waifu image
         nsfwsetting = self.settings.get_preference("nsfw")
         if nsfwsetting:
             nsfw = True
         else:
             nsfw = False
-        ct = CatgirlDownloaderAPI()
+        ct = WaifuDownloaderAPI()
         url = ct.get_neko(nsfw)
         self.info = ct.info
         if url is not None:

@@ -24,10 +24,10 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 
 from gi.repository import Gtk, Gio, Adw
-from .window import CatgirldownloaderWindow
+from .window import WaifudownloaderWindow
 from .preferenceswindow import PreferencesWindow
 
-class CatgirldownloaderApplication(Adw.Application):
+class WaifudownloaderApplication(Adw.Application):
     """The main application singleton class."""
 
     def __init__(self):
@@ -47,15 +47,15 @@ class CatgirldownloaderApplication(Adw.Application):
         """
         win = self.props.active_window
         if not win:
-            win = CatgirldownloaderWindow(application=self)
-        win.set_title("Catgirl Downloader")
+            win = WaifudownloaderWindow(application=self)
+        win.set_title("Waifu Downloader")
         self.window = win
         win.present()
 
     def on_about_action(self, widget, _):
         """Callback for the app.about action."""
         about = Adw.AboutWindow(transient_for=self.props.active_window,
-                                application_name='Catgirl Downloader',
+                                application_name='Waifu Downloader',
                                 application_icon='moe.nyarchlinux.waifudownloader',
                                 developer_name='Nyarch Linux developers team',
                                 version='0.2.4',
@@ -97,5 +97,5 @@ class CatgirldownloaderApplication(Adw.Application):
 
 def main(version):
     """The application's entry point."""
-    app = CatgirldownloaderApplication()
+    app = WaifudownloaderApplication()
     return app.run(sys.argv)
