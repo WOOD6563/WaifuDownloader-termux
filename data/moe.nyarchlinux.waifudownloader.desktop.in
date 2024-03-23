@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Waifu Downloader
+Comment=Very useful application to get random images of waifus
 Exec=waifudownloader
 Icon=moe.nyarchlinux.waifudownloader
 Terminal=false

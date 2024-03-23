@@ -58,9 +58,9 @@ class WaifudownloaderApplication(Adw.Application):
                                 application_name='Waifu Downloader',
                                 application_icon='moe.nyarchlinux.waifudownloader',
                                 developer_name='Nyarch Linux developers team',
-                                version='0.2.5',
+                                version='0.2.7',
                                 developers=['SilverOS'],
-                                copyright='© 2022 SilverOS')
+                                copyright='© 2024 SilverOS')
         about.present()
 
     def on_art_about_action(self, widget, _):
