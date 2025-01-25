@@ -80,6 +80,19 @@ class WaifudownloaderWindow(Adw.ApplicationWindow):
         """
         self.dialog = Gtk.FileChooserDialog(title="Save, file", parent=self,
                                             action=Gtk.FileChooserAction.SAVE)
+
+        # Add correct extension to file name
+        file_extension = self.info["images"][0]["extension"][1:]
+        image_filter = Gtk.FileFilter()
+        image_filter.set_name(f"{file_extension.upper()} files")
+        image_filter.add_pattern(f"*.{file_extension}")
+        self.dialog.add_filter(image_filter)
+
+        # Suggest a sensible default filename
+        # using this format ensures the image source can easily be found from its name
+        image_id = self.info["images"][0]["image_id"]
+        self.dialog.set_current_name(f"waifu.im_{image_id}.{file_extension}")
+
         # Buttons
         self.dialog.add_button('Cancel', Gtk.ResponseType.CANCEL)
         self.dialog.add_button('Save', Gtk.ResponseType.OK)
