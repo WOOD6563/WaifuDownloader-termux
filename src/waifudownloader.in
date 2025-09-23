@@ -1,5 +1,4 @@
-#!@PYTHON@
-
+#!/data/data/com.termux/files/usr/bin/python3
 # waifudownloader.in
 #
 # Copyright 2023 Francesco Caracciolo
@@ -25,23 +24,30 @@ import signal
 import locale
 import gettext
 
-VERSION = '@VERSION@'
-pkgdatadir = '@pkgdatadir@'
-localedir = '@localedir@'
+VERSION = '0.2.9'
+pkgdatadir = os.path.expanduser("~/.local/share/waifudownloader")
+localedir = os.path.expanduser("~/.local/share/locale")
 
 sys.path.insert(1, pkgdatadir)
 signal.signal(signal.SIGINT, signal.SIG_DFL)
-locale.bindtextdomain('waifudownloader', localedir)
-locale.textdomain('waifudownloader')
-gettext.install('waifudownloader', localedir)
+
+# Fix for Termux: only bind locale if the directory exists
+if os.path.isdir(localedir):
+    try:
+        locale.bindtextdomain('waifudownloader', localedir)
+        locale.textdomain('waifudownloader')
+        gettext.install('waifudownloader', localedir)
+    except Exception:
+        gettext.install('waifudownloader')
+else:
+    gettext.install('waifudownloader')
 
 if __name__ == '__main__':
     import gi
-
     from gi.repository import Gio
+
     resource = Gio.Resource.load(os.path.join(pkgdatadir, 'waifudownloader.gresource'))
     resource._register()
 
     from waifudownloader import main
     sys.exit(main.main(VERSION))
-
