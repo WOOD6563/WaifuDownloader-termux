@@ -1,39 +1,40 @@
 #!/bin/bash
-# Termux GTK3/Python + WaifuDownloader Setup Script
+set -e
 
-set -e  # Exit immediately if a command fails
+echo "[*] Updating Termux packages..."
+apt update -y && apt upgrade -y
 
-echo "Updating Termux packages..."
-apt update -y && pkg upgrade -y
+echo "[*] Installing required packages..."
+pkg install -y python git ninja pkg-config gtk3 libxml2-utils gettext
 
-echo "Installing required packages..."
-apt install python git  ninja pkg-config gtk3 libxml2-utils gettext 
+echo "[*] Installing Python GTK3 bindings..."
+pip install --upgrade pip
+pip install PyGObject meson
 
-
-echo "Installing Python GTK3 bindings..."
-pip install PyGObject
-pip install meson
-
-# Create a projects directory if it doesn't exist
 mkdir -p ~/projects
 cd ~/projects
 
-echo "Cloning WaifuDownloader repository..."
-git clone https://github.com/WOOD6563/WaifuDownloader
+echo "[*] Cloning WaifuDownloader repository..."
+if [ ! -d "WaifuDownloader" ]; then
+    git clone https://github.com/WOOD6563/WaifuDownloader
+fi
 cd WaifuDownloader
 
-echo "Setting up build directory with Meson..."
-meson setup builddir --prefix=$HOME/.local
+echo "[*] Setting up build directory with Meson..."
+meson setup builddir --prefix=$HOME/.local || echo "[!] Build directory already exists, continuing..."
 
-echo "Compiling the project..."
+echo "[*] Compiling the project..."
 meson compile -C builddir
 
-echo "Installing the project locally..."
+echo "[*] Installing the project locally..."
 meson install -C builddir
 
-mv ~/.local/bin/waifudownloader /data/data/com.termux/files/usr/bin
+if [ -f "$HOME/.local/bin/waifudownloader" ]; then
+    mv "$HOME/.local/bin/waifudownloader" "$PREFIX/bin/" || echo "[!] Could not move binary, check permissions."
+fi
 
-echo "type 
-
-termux-x11 && export DISPLAY=:0 
-waifudownloader""
+echo "[*] Setup complete!"
+echo "To run WaifuDownloader, execute:"
+echo "  termux-x11"
+echo "  export DISPLAY=:0"
+echo "  waifudownloader"
