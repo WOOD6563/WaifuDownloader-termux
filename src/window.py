@@ -17,7 +17,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from gi.repository import Gtk, Adw, GdkPixbuf, GLib
+from gi.repository import Gtk, Adw, GdkPixbuf, Gdk, GLib
 from .waifu import WaifuDownloaderAPI
 import threading
 from .preferences import UserPreferences
@@ -63,7 +63,9 @@ class WaifudownloaderWindow(Adw.ApplicationWindow):
         loader = GdkPixbuf.PixbufLoader()
         loader.write_bytes(GLib.Bytes.new(content))
         loader.close()
-        self.image.set_from_pixbuf(loader.get_pixbuf())
+        # Convert to a texture for GtkPicture so it can scale to the container
+        texture = Gdk.Texture.new_for_pixbuf(loader.get_pixbuf())
+        self.image.set_paintable(texture)
         # Stop loading and display image
         self.spinner.stop()
         self.spinner.set_visible(False)
