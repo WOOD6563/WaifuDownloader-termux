@@ -8,7 +8,6 @@ echo "[*] Installing required packages..."
 pkg install -y python git ninja pkg-config gtk3 libxml2-utils gettext
 
 echo "[*] Installing Python GTK3 bindings..."
-pip install --upgrade pip
 pip install PyGObject meson
 
 mkdir -p ~/projects
