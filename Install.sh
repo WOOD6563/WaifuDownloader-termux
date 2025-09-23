@@ -29,7 +29,7 @@ meson compile -C builddir
 echo "[*] Installing the project locally..."
 meson install -C builddir
 
-if [ -f "$HOME/.local/bin/waifudownloader" ]; then
+if [ -f "$HOME/.local/bin/applications/waifudownloader" ]; then
     mv "$HOME/.local/bin/waifudownloader" "$PREFIX/bin/" || echo "[!] Could not move binary, check permissions."
 fi
 
